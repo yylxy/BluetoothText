@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -76,7 +77,8 @@ public class PrintActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
         mBluetoothDevicesDatas = new ArrayList<>();
-        adapter = new PrintAdapter(this, mBluetoothDevicesDatas, getIntent().getStringExtra("printContent"));
+        String printContent=getIntent().getStringExtra("printContent");
+        adapter = new PrintAdapter(this, mBluetoothDevicesDatas, TextUtils.isEmpty(printContent)?"123456789完\n\n\n":printContent);
         listView.setAdapter(adapter);
 
         chechBluetooth();

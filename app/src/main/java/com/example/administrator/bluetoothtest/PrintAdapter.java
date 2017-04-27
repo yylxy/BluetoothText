@@ -41,7 +41,7 @@ class PrintAdapter extends BaseAdapter {
     ProgressDialog progressDialog = null;
     private final int exceptionCod = 100;
     //打印的内容
-    private String mPrintContent = "123456789完\n\n\n";
+    private String mPrintContent;
     //在打印异常时更新ui
     Handler handler = new Handler() {
         @Override
