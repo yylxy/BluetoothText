@@ -102,38 +102,6 @@
         android:layout_height="8dp"
         android:background="#ffcccccc" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="15dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="名称"
-            android:layout_marginLeft="25dp"
-            android:textColor="#ff000000"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="状态"
-            android:textColor="#ff000000"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="选择打印"
-            android:textColor="#ff000000"
-            android:textSize="14sp" />
-
-    </LinearLayout>
 
     <ListView
         android:id="@+id/listView"

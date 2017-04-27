@@ -21,11 +21,19 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+import static android.R.attr.id;
+import static com.example.administrator.bluetoothtest.PrintBean.PRINT_TYPE;
+
+/**
+ * 类说明:打印的页面
+ * 阳（360621904@qq.com）  2017/4/27  19:56
+ */
+
+public class PrintActivity extends AppCompatActivity {
     //设备列表
     private ListView listView;
-    private ArrayList<DataBean> mBluetoothDevicesDatas;
-    private MyAdapter adapter;
+    private ArrayList<PrintBean> mBluetoothDevicesDatas;
+    private PrintAdapter adapter;
     //蓝牙适配器
     private BluetoothAdapter mBluetoothAdapter;
     //请求的code
@@ -37,6 +45,17 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView searchHint;
 
+    /**
+     * 启动打印页面
+     *
+     * @param printContent 要打印的内容
+     */
+    public static void starUi(Context context, String printContent) {
+        Intent intent = new Intent(context, PrintActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("printContent", printContent);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
         mBluetoothDevicesDatas = new ArrayList<>();
-        adapter = new MyAdapter(this, mBluetoothDevicesDatas, mBluetoothAdapter);
+        adapter = new PrintAdapter(this, mBluetoothDevicesDatas, getIntent().getStringExtra("printContent"));
         listView.setAdapter(adapter);
 
         chechBluetooth();
@@ -139,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "88", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PrintActivity.this, "88", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -224,10 +243,10 @@ public class MainActivity extends AppCompatActivity {
                     mBluetoothDevicesDatas.remove(i);
                 }
             }
-            if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
-                mBluetoothDevicesDatas.add(0, new DataBean(device));
+            if (device.getBondState() == BluetoothDevice.BOND_BONDED && device.getBluetoothClass().getDeviceClass() == PRINT_TYPE) {
+                mBluetoothDevicesDatas.add(0, new PrintBean(device));
             } else {
-                mBluetoothDevicesDatas.add(new DataBean(device));
+                mBluetoothDevicesDatas.add(new PrintBean(device));
             }
         }
     };

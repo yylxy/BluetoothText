@@ -1,12 +1,14 @@
 package com.example.administrator.bluetoothtest;
 
 import android.bluetooth.BluetoothDevice;
+import android.view.View;
 
 /**
- * Created by Administrator on 2017/4/24.
+ * 类说明:蓝牙设备的实体类
+ * 阳（360621904@qq.com）  2017/4/27  19:57
  */
-
-public class DataBean {
+public class PrintBean {
+    public static final int PRINT_TYPE = 1664;
     //蓝牙-名称
     public String name;
     //蓝牙-地址
@@ -21,7 +23,7 @@ public class DataBean {
     /**
      * @param devicee 蓝牙设备对象
      */
-    public DataBean(BluetoothDevice devicee) {
+    public PrintBean(BluetoothDevice devicee) {
         this.name = devicee.getName();
         this.address = devicee.getAddress();
         this.isConnect = devicee.getBondState() == BluetoothDevice.BOND_BONDED;
@@ -46,7 +48,7 @@ public class DataBean {
     public int getTypeIcon() {
         if (type == 260) {
             return R.drawable.ic_computer_black_24dp;
-        } else if (type == 1664) {
+        } else if (type == PRINT_TYPE) {
             return R.drawable.ic_local_printshop_black_24dp;
         } else if (type == 524) {
             return R.drawable.ic_phone_android_black_24dp;
@@ -55,10 +57,12 @@ public class DataBean {
         }
     }
 
-    public String getDeviceType() {
-        if (type == 1664) {
-            return "选择打印";
+    public String getDeviceType(View view) {
+        if (type == PRINT_TYPE) {
+            view.setSelected(true);
+            return isConnect ? "选择打印" : "点击连接";
         } else {
+            view.setSelected(false);
             return "非打印设备";
         }
     }
