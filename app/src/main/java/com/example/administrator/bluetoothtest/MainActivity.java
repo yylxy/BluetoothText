@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (isSearch) {
             mFloatingActionButton.setVisibility(View.GONE);
-            searchHint.setVisibility(View.GONE);
+            searchHint.setVisibility(View.VISIBLE);
             mProgressBar.setVisibility(View.VISIBLE);
         } else {
             mFloatingActionButton.setVisibility(View.VISIBLE);
@@ -125,13 +125,18 @@ public class MainActivity extends AppCompatActivity {
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchDevices();
-                setViewStatus(true);
+                if (mSwitch.isChecked()) {
+                    searchDevices();
+                    setViewStatus(true);
+                } else {
+                    openBluetooth();
+                    setViewStatus(true);
+                }
             }
         });
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar. setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "88", Toast.LENGTH_SHORT).show();
@@ -145,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_ENABLE_BT) {
             Log.e("text", "开启蓝牙");
             searchDevices();
+            mSwitch.setChecked(true);
             mBluetoothDevicesDatas.clear();
             adapter.notifyDataSetChanged();
         } else if (resultCode == RESULT_CANCELED && requestCode == REQUEST_ENABLE_BT) {
@@ -195,11 +201,11 @@ public class MainActivity extends AppCompatActivity {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 //已经匹配的设备
                 if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
-                    addBluetoothDevice(device, true);
+                    addBluetoothDevice(device);
 
                     //没有匹配的设备
                 } else {
-                    addBluetoothDevice(device, false);
+                    addBluetoothDevice(device);
                 }
                 adapter.notifyDataSetChanged();
                 //搜索完成
@@ -209,22 +215,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         /**
-         *
-         * @param device
-         * @param isConnect
+         * 添加数据
+         * @param device 蓝牙设置对象
          */
-        private void addBluetoothDevice(BluetoothDevice device, boolean isConnect) {
+        private void addBluetoothDevice(BluetoothDevice device) {
             for (int i = 0; i < mBluetoothDevicesDatas.size(); i++) {
                 if (device.getAddress().equals(mBluetoothDevicesDatas.get(i).getAddress())) {
                     mBluetoothDevicesDatas.remove(i);
                 }
             }
-            if (isConnect) {
-                mBluetoothDevicesDatas.add(0, new DataBean(device.getName(), device.getAddress(), isConnect));
+            if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
+                mBluetoothDevicesDatas.add(0, new DataBean(device));
             } else {
-                mBluetoothDevicesDatas.add(new DataBean(device.getName(), device.getAddress(), isConnect));
+                mBluetoothDevicesDatas.add(new DataBean(device));
             }
-
         }
     };
 

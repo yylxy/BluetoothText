@@ -6,6 +6,15 @@
     android:orientation="horizontal"
     android:padding="15dp">
 
+    <View
+        android:id="@+id/icon"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:background="@mipmap/ic_launcher"
+        android:text="名称" />
+
     <TextView
         android:id="@+id/name"
         android:layout_width="0dp"

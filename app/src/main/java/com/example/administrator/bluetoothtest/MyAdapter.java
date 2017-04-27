@@ -57,18 +57,17 @@ class MyAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.itme, null);
+        View icon = convertView.findViewById(R.id.icon);
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView address = (TextView) convertView.findViewById(R.id.address);
         TextView start = (TextView) convertView.findViewById(R.id.start);
 
         final DataBean dataBean = mBluetoothDevicesDatas.get(position);
+        icon.setBackgroundResource(dataBean.getTypeIcon());
         name.setText(dataBean.name);
-        address.setText(dataBean.address);
-        if (dataBean.isConnect) {
-            start.setText("已连接");
-        } else {
-            start.setText("未连接");
-        }
+        address.setText(dataBean.isConnect ? "已连接" : "未连接");
+        start.setText(dataBean.getDeviceType());
+
         //点击连接与打印
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +141,7 @@ class MyAdapter extends BaseAdapter {
                 //连接成功获取输出流
                 outputStream = mmSocket.getOutputStream();
                 //打印
-                String str = "55555555555555\n\n888888888888\n\n9999999999999999\n\n22222222222\n\n完\n\n\n\n\n\n";
+                String str = "123456789完";
                 send(str);
             } catch (IOException connectException) {
                 Log.e("test", "连接失败");
