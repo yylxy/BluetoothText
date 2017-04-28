@@ -38,6 +38,6 @@
         android:padding="5dp"
         android:textSize="14sp"
         android:text="非打印设备"
-        android:textColor="@color/select_order_color" />
+        android:textColor="@color/select_print_color" />
 
 </LinearLayout>

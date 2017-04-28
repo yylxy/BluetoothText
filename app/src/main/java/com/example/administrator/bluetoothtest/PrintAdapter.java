@@ -150,6 +150,7 @@ class PrintAdapter extends BaseAdapter {
      */
     public void send(String sendData) {
         try {
+
             byte[] data = sendData.getBytes("gbk");
             outputStream.write(data, 0, data.length);
             outputStream.flush();
@@ -182,6 +183,7 @@ class PrintAdapter extends BaseAdapter {
                 mmSocket.connect();
                 //连接成功获取输出流
                 outputStream = mmSocket.getOutputStream();
+
 
                 send(mPrintContent);
             } catch (Exception connectException) {

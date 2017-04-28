@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static android.R.attr.id;
 import static com.example.administrator.bluetoothtest.PrintBean.PRINT_TYPE;
 
 /**
@@ -53,7 +52,6 @@ public class PrintActivity extends AppCompatActivity {
      */
     public static void starUi(Context context, String printContent) {
         Intent intent = new Intent(context, PrintActivity.class);
-        intent.putExtra("id", id);
         intent.putExtra("printContent", printContent);
         context.startActivity(intent);
     }
@@ -61,7 +59,7 @@ public class PrintActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_print);
         //广播注册
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
@@ -77,15 +75,15 @@ public class PrintActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
         mBluetoothDevicesDatas = new ArrayList<>();
+
         String printContent=getIntent().getStringExtra("printContent");
-        adapter = new PrintAdapter(this, mBluetoothDevicesDatas, TextUtils.isEmpty(printContent)?"123456789完\n\n\n":printContent);
+        adapter = new PrintAdapter(this, mBluetoothDevicesDatas, TextUtils.isEmpty(printContent)?"\n123456789℃＄¤￠‰§№☆★完\n\n":printContent);
         listView.setAdapter(adapter);
 
         chechBluetooth();
         addViewListener();
 
     }
-
 
     /**
      * 判断有没有开启蓝牙
