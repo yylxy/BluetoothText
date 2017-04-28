@@ -1,6 +1,7 @@
 package com.example.administrator.bluetoothtest;
 
 import android.bluetooth.BluetoothDevice;
+import android.text.TextUtils;
 import android.view.View;
 
 /**
@@ -24,7 +25,7 @@ public class PrintBean {
      * @param devicee 蓝牙设备对象
      */
     public PrintBean(BluetoothDevice devicee) {
-        this.name = devicee.getName();
+        this.name = TextUtils.isEmpty(devicee.getName()) ? "未知" : devicee.getName();
         this.address = devicee.getAddress();
         this.isConnect = devicee.getBondState() == BluetoothDevice.BOND_BONDED;
         this.type = devicee.getBluetoothClass().getDeviceClass();
@@ -53,7 +54,7 @@ public class PrintBean {
         } else if (type == 524) {
             return R.drawable.ic_phone_android_black_24dp;
         } else {
-            return R.drawable.ic_more_vert_black_24dp;
+            return R.drawable.ic_issue;
         }
     }
 
