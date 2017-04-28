@@ -150,7 +150,6 @@ class PrintAdapter extends BaseAdapter {
      */
     public void send(String sendData) {
         try {
-
             byte[] data = sendData.getBytes("gbk");
             outputStream.write(data, 0, data.length);
             outputStream.flush();
@@ -162,6 +161,7 @@ class PrintAdapter extends BaseAdapter {
 
         }
     }
+
 
     /**
      * 连接为客户端
