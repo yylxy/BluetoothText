@@ -31,12 +31,13 @@
 
     <TextView
         android:id="@+id/start"
-        android:layout_width="wrap_content"
+        android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_print"
-        android:gravity="right"
+        android:gravity="center"
         android:padding="5dp"
-        android:text="地址"
+        android:textSize="14sp"
+        android:text="非打印设备"
         android:textColor="@color/select_order_color" />
 
 </LinearLayout>
